@@ -1,0 +1,8 @@
+DBeaver 프로그램으로 sparta DB을 활용해서 SQL 연습을 진행.
+MYSQL 문법 사용
+
+테이블 = 엑셀 시트
+필드 = 열
+
+show tables - 해당 DB의 테이블 명들을 가져옴
+select 필드 명 from 테이블 명 - 테이블의 특정 필드 데이터를 가져옴. *은 전체를 뜻함
