@@ -36,4 +36,31 @@
     이런 식으로 틀을 만들고
     monster1 = Monster()
     monster1.damage(120)
-    이런 식으로 몬스터1 만들기와 데미지 계산을 간단하게 
+    이런 식으로 몬스터1 만들기와 데미지 계산을 간단하게 가능
+    class 내부 함수는 객체.내부함수() 식으로 사용 가능
+    
+  !!!Try~except 예외문 - ~를 시도해보고 에러가 나오면 예외문을 출력하도록
+  try:
+    명령문
+  except:
+    예외문
+    
+  !!!판다스와 데이터 프레임, 패키지
+  패키지 - 다른 누군가가 이미 만들어놓은 함수, 클래스 덩어리. import로 불러옴
+  판다스 - 데이터 프레임 형태의 데이터를 분석하기에 용이한 패키지
+    
+  import pandas as 내가 정할 이름
+  이런 식으로 불러옴
+  일반적으로는
+  import pandas as pd 로 사용
+     
+  데이터 프레임은 딕셔너리 형태 items = {'A' : [~,~,~]}의 데이터를 만든 후 
+  데이터프레임명 = pd.DataFrame(items) 식으로 만들 수 있음
+  
+  판다스 데이터프레임 함수
+  - df.head() : 상위 5개 행만 출력
+  - df.tail() : 하위 5개 행만 출력
+  - df.sample(~) : 무작위 ~개의 행을 출력
+  - pd.concat([df1, df2] : df1과 df2를 합쳐줌
+  - df.to_csv('파일명.csv', index = False) : df의 데이터를 csv파일로 저장. index=False를 추가하면 데이터의 index부분은 csv에 저장 안됨
+  - new_df = pd.read_table('파일명.csv', sep=',') : 파일명.csv를 new_df로 읽어들이고, sep부분은 ,로 표기
