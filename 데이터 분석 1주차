@@ -9,4 +9,31 @@
   .append(A) 는 리스트 마지막에 A를 추가할 때 사용
   .extend(리스트A)은 기존 리스트 뒷부분에 리스트A를 추가
   
+  for 반복문
+  for 임시변수 in 대상:
+    명령어
+  로 작성
   
+  if 조건문
+  if 조건 :
+    결과 행동
+  로 작성  
+  
+  range 함수 - range(0,5) 사용 시 [0,1,2,3,4] 출력
+  
+  !!!함수 만들기
+  def 함수명(함수 변수1, 변수2, ...):
+    수행할 코드
+    return 최종 결과
+  
+  !!!class 만들기(틀 만들기)
+  class Monster():
+    hp = 100
+    mp = 10
+    
+      def damage(self, attack):
+        self.hp = self.hp-attack
+    이런 식으로 틀을 만들고
+    monster1 = Monster()
+    monster1.damage(120)
+    이런 식으로 몬스터1 만들기와 데미지 계산을 간단하게 
