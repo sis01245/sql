@@ -18,3 +18,8 @@ where문은 쉽게 복잡해지기 때문에 다른 줄로 작성하는게 보�
 - 포함 조건(예를 들어 1,3주차 사람들의 데이터만 불러오기)은 in을 사용 where 필드명 in (A,B)
 - 패턴 조건은 like 활용 where 필드명 like '~~'
   like 문법 : % - 모든 문자, 숫자 기호 포함
+
+추가 문법
+- limit : 보여줄 데이터 수를 정함. select~where~ 다음 limit 5 하면 5개 데이터만 보여줌
+- distinct : 중복 데이터를 삭제하고 보여줌. select distinct(필드명) from 테이블명 식으로 사용
+- count : 데이터 수를 셀 때 사용. select count(필드명) from 테이블명 식으로 사용. where을 붙여주면 특정 조건의 데이터 수도 셀 수 잇음
