@@ -1,1 +1,34 @@
+!!!Join 사용 : 여러 테이블에 흩어져 있는 정보(테이블)를 하나로 연결
+여기서부터 실전 데이터분석이라 봐도 무방!!
+
+- Left Join : 왼쪽에 있는 테이블을 기준으로 join을 진행
+select * from users u(users 데이터를 모두 읽는데)
+left join point_users pu(point_users 테이블을 left join해서 읽을거야)
+on u.user_id = pu.user_id(left join은 user_id 항목을 기준으로 진행할거고)
+
+- Inner Join : 두 테이블을 붙이긴 하는데 on에 들어간 필드 값이 존재하는 애들만 표현함(교집합)
+
+!! 쿼리 실행 순서
+select * from enrolleds e
+inner join courses c
+on e.course_id = c.course_id; 라는 쿼리는
+from(테이블 데이터 불러오고) -> join(다른 테이블과 join을 진행한 다음) -> select(모아진 데이터를 출력함)
+
+### Join과 다른 문법 함께 사용하기
+
+## 1. checkins 테이블에 courses 테이블 연결해서 통계치 내보내기
+select * from checkins ci;
+select * from courses co;
+#course_id가 겹치니 이걸로 join 가능
+
+select * from checkins ci
+inner join courses co
+on ci.course_id = co.course_id;
+#성공적으로 join됨
+
+#courses의 타이틀 별 오늘의 다짐 수 구하기
+select co.title(별칭 함께 사용해서 어떤 필드인지 특정), count(*) from checkins ci
+inner join courses co
+on ci.course_id = co.course_id
+group by co.title
 
