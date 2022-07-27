@@ -26,9 +26,14 @@ inner join courses co
 on ci.course_id = co.course_id;
 #성공적으로 join됨
 
-#courses의 타이틀 별 오늘의 다짐 수 구하기
-select co.title(별칭 함께 사용해서 어떤 필드인지 특정), count(*) from checkins ci
-inner join courses co
-on ci.course_id = co.course_id
-group by co.title
+## 네이버 메일을 쓰는 주문 건들의 성씨별 주문 건수 확인하기
+select * from orders o;
+select * from users u;
+#user_id와 email이 겹침
+select name, count(*) from orders o
+inner join users u
+on o.user_id = u.user_id
+where o.email like '%@naver.com'
+group by u.name;
+# 네이버 메일을 쓰는 주문 건들의 성씨별 주문 건수 확인 완료.
 
