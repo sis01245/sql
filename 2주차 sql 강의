@@ -1,4 +1,4 @@
-Group by문
+Group by문 <- where 절 다음에 사용
 
 select 보고 싶은 데이터 from 테이블 명 
 에서
@@ -14,3 +14,15 @@ group by 원하는 분류 기준
 으로 한 번 더 수정해줘서 name열, 계산값열 이렇게 나오도록 작성
 *이 순서로 작성하는게 실수가 훨씬 줄어듦
 
+- 최솟값 : min 사용
+예시) 주차별 최소 like 찾기
+1. select * from checkins
+2. select * from checkins
+   group by week(주차별이니까)
+3. select week, min(like) from checkins (이렇게 주차와 최소치가 나오도록 함)
+   group by week
+
+- 최댓값 : max 사용
+- 평균값 : avg 사용
+tip : 반올림은 round(수치, 소숫점 아래 수) 사용
+- 합계 : sum 사용
