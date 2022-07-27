@@ -31,4 +31,10 @@ tip : 반올림은 round(수치, 소숫점 아래 수) 사용
 !!!Order by문 <- Group by 다음(마지막)에 사용. group by 가 없어도 사용 가능
 기본적으로 오름차순 정렬. asc로 따로 표현하거나, 내림차순을 원하면 desc로 표현하면 됨
 
+!!쿼리 실행 순서 : from(데이터 전체를 불러오고) -> group by(같은 기준값을 갖는 데이터 합치고) -> select(합쳐진 데이터 각각의 통계치를 계산하고) -> order by(순서에 따라 정렬함)
+
+!!! 별칭(alias) : 필드, 테이블 명을 짧게 부르기 위한 별칭
+1. select * from orders o 라고 표현해서 orders 테이블을 이후 o라고 표현 가능, 이후 절들에서도 필드명을 o.필드명으로 표현 가능
+2. group by 사용 후 통계치 표현할 때 select name, count(*) as cnt from users 처럼 통계값 병칭을 as를 활용하여 설정 가능
+
 
