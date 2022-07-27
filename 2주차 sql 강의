@@ -14,7 +14,8 @@ group by 원하는 분류 기준
 으로 한 번 더 수정해줘서 name열, 계산값열 이렇게 나오도록 작성
 *이 순서로 작성하는게 실수가 훨씬 줄어듦
 
-- 최솟값 : min 사용
+- 데이터 수 : count(*) 사용
+- 최솟값 : min(필드명) 사용. 아래는 다 계산할 필드명
 예시) 주차별 최소 like 찾기
 1. select * from checkins
 2. select * from checkins
@@ -26,3 +27,4 @@ group by 원하는 분류 기준
 - 평균값 : avg 사용
 tip : 반올림은 round(수치, 소숫점 아래 수) 사용
 - 합계 : sum 사용
+
