@@ -37,3 +37,31 @@ where o.email like '%@naver.com'
 group by u.name;
 # 네이버 메일을 쓰는 주문 건들의 성씨별 주문 건수 확인 완료.
 
+!!!group by는 두 개 이상의 조건을 ,로 걸 수 있음. 예시) 각 강좌의(강좌별) week 별 오늘의 다짐 수 세기
+!!!order by도 ,로 두 개 이상의 정렬 기준을 걸 수 있음. order by 첫 번째 정렬 기준, 두 번째 정렬 기준... 그리고 각 기준마다 오름차순/내림차순 설정 가능
+
+## 4. 웹개발, 앱개발 종합반의 week 별 체크인 수 세기
+select * from checkins c;
+select * from courses c;
+# 확인 완료
+select co.course_id, co.title, ci.week, count(*) from checkins ci
+inner join courses co
+on ci.course_id = co.course_id
+group by ci.week, co.course_id
+order by title, week;
+# 확인 완료
+
+!!!세 개 이상의 테이블에도 join을 엮을 수 있음.
+# 이 중 8월 1일 이후에 구매한 고객들만 구별하기! orders를 또 붙여야 함
+select co.course_id, co.title, ci.week, count(*) from checkins ci
+inner join courses co
+on ci.course_id = co.course_id
+inner join orders o
+on ci.user_id = o.user_id
+where o.updated_at >= '2020-08-01'
+group by ci.week, co.course_id
+order by co.course_id, ci.week;
+#확인 완료
+
+!! null인 데이터를 찾을 때는 필드명 = null이 아니라 필드명 is null로 찾아야 함
+
