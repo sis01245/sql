@@ -15,6 +15,50 @@ where user_id in (
 )
 방법 2처럼 where절에 쿼리가 들어있어서 join 없이도 카카오페이로 결제한 유저들의 정보를 불러올 수 있었음
 
+- where 절 서브쿼리
+where 필드명 in (서브쿼리) : 서브쿼리에서 나온 데이터와 같은 값을 가진 필드의 데이터들만 사용하겠다는 뜻
+
+- select절 서브쿼리
+select 필드명1, 필드명2, (서브쿼리) from ~~ : 
+## 오늘의 다짐 좋아요 수가 평소에 받았던 좋아요 수에 비해 얼마나 높고 낮은지 확인하기
+# user_id = '4b8a10e6'을 예시로
+# 평균 먼저 구하기
+select avg(likes) from checkins
+where user_id = '4b8a10e6';
+
+# 위의 쿼리를 select 안의 서브쿼리로 넣고, user_id = ~~ 부분은 user_id = c.user_id로 둬서 매 행의 데이터를 불러올 때마다 평균값을 계산하도록 함
+select c.checkin_id,
+       c.user_id, 
+       c.likes, 
+       (
+       select avg(likes) from checkins
+       where user_id = c.user_id 
+       ) as avg_like_user
+  from checkins c
+  
+- from 절 서브쿼리(가장 많이 사용됨, 가장 유용) : 내가 만든 select와 테이블을 join할 때 사용하면 좋음!
+
+## 포인트를 많이 쌓은 사람은 좋아요도 많이 받았을까?
+# 유저 별 좋아요 평균 구하기. user_id와 평균 likes가 나옴
+select user_id, round(avg(likes),1) as avg_likes from checkins
+group by user_id;
+# 여기에 출력된 데이터를 다른 테이블 데이터에 붙이면 됨
+select pu.user_id,
+       pu.point
+       from point_users pu
+# 이거는 user_id와 포인트가 나옴. 두개를 붙이자
+
+select pu.user_id,
+       pu.point,
+       ul.avg_likes # 2. 새로 붙인 테이블의 필드를 출력 필드로 불러옴
+       from point_users pu
+inner join (
+	select user_id, round(avg(likes),1) as avg_likes from checkins
+	group by user_id 
+) ul # 1. 먼저 inner join으로 아까 만든 두 테이블을 user_id 기준 통합하고
+on pu.user_id = ul.user_id
+# 그럼 user_id, point, 평균 likes 필드의 데이터 출력 완료!
+
 !!! With
 
 !!! 실무 데이터 가공(문자열 사용)
