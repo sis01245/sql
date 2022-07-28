@@ -1,0 +1,22 @@
+!!! Subquery : 쿼리 안에 들어있는 다른 쿼리
+
+## 카카오페이로 결제한 유저들의 정보 보기
+# user_id, name, email만 보고 싶을 때 방법 1.
+select u.user_id, u.name, u.email from users u
+inner join orders o
+on u.user_id = o.user_id
+where o.payment_method = 'kakaopay'
+
+# 방법 2.
+select user_id, name, email from users
+where user_id in (
+	select user_id from orders
+	where payment_method = 'kakaopay'
+)
+방법 2처럼 where절에 쿼리가 들어있어서 join 없이도 카카오페이로 결제한 유저들의 정보를 불러올 수 있었음
+
+!!! With
+
+!!! 실무 데이터 가공(문자열 사용)
+
+!!! case when
