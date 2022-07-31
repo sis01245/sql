@@ -59,6 +59,44 @@ inner join (
 on pu.user_id = ul.user_id
 # 그럼 user_id, point, 평균 likes 필드의 데이터 출력 완료!
 
+!! join 한 테이블의 모든 것을 보고 싶으면 select문에 테이블명.* 필드를 하나 추가해주면 됨
+
+!!!!! alias를 서브쿼리에서 만든 후, 해당 alias를 필드명으로 불러와서 계산에 사용하는 것은 가능하지만, alias를 지정한 쿼리에서 바로 alias를 사용하여 계산에 사용하는 건 인식을 못함!!!
+## 어느 course의 수강생들이 checkins를 더 활발하게 하는지 알아보기
+select * from checkins;
+# course_id별 한 번이라도 checkins를 한 유저의 수
+select course_id, count(distinct(user_id)) as cnt_checkins from checkins
+group by course_id;
+# course 별 수강 인원 수
+select course_id, count(user_id) as cnt_total from orders
+group by course_id;
+
+# 두 개를 합치기
+select cp.course_title as title, count(distinct(c.user_id)) as cnt_checkins, cp.cnt_total, (count(distinct(c.user_id))/cp.cnt_total) as ratio
+from checkins c
+inner join (
+	select *, count(user_id) as cnt_total from orders
+	group by course_id
+) cp
+on c.course_id = cp.course_id
+group by c.course_id
+
+# 
+select c.title, a.cnt_checkins, b.cnt_total,
+       a.cnt_checkins/b.cnt_total as ratio
+from (
+	select course_id, count(distinct(user_id)) as cnt_checkins from checkins
+	group by course_id
+) a
+inner join (
+	select course_id, count(*) as cnt_total from orders
+	group by course_id
+) b 
+on a.course_id = b.course_id
+inner join courses c
+on a.course_id = c.course_id
+
+
 !!! With
 
 !!! 실무 데이터 가공(문자열 사용)
