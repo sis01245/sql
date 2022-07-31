@@ -97,8 +97,56 @@ inner join courses c
 on a.course_id = c.course_id
 
 
-!!! With
+!!! With절 : subquery를 아주 간편하게 사용하게 해 줌. subquery로 사용할 애들을 맨 처음 줄에 따로 표시
+with 지정테이블명1 as (서브쿼리1), 지정테이블명2 as (서브쿼리2)
+
+# 위에 쓴 걸 아래처럼 바꿀 수 있다
+
+with a as (
+	select course_id, count(distinct(user_id)) as cnt_checkins from checkins
+	group by course_id
+), b as (
+	select course_id, count(*) as cnt_total from orders
+	group by course_id
+)
+select c.title, a.cnt_checkins, b.cnt_total,
+       a.cnt_checkins/b.cnt_total as ratio from a
+inner join b
+on a.course_id = b.course_id
+inner join courses c
+on a.course_id = c.course_id
+
 
 !!! 실무 데이터 가공(문자열 사용)
+실제 업무에서는 문자열 데이터를 원하는 형태로 정리해야 하는 경우가 많음
+## 이메일 주소에서 @ 앞의 아이디만 가져오거나 @ 뒤의 도메인만 가져오고 싶을 때
+## substring_index 사용
+select user_id, email, substring_index(email, '@', -1) from users
 
-!!! case when
+substring_index(email, '@', 1) 로 하는 경우엔 @ 이전 데이터를 불러오고, (email, '@', -1)로 하면 @ 이후 데이터를 가져옴
+
+## orders 테이블에서 created_at을 날짜까지만 출력하게 하기
+select user_id, created_at, substring(created_at, 1, 10) from orders
+
+substring(필드명, 시작 포인트, 몇 글자)는 데이터의 시작 포인트에서부터 몇 글자의 데이터를 불러옴
+
+!!! case then : case when 조건문 then 참일 때 값 else 거짓일 때 값 end 로 조건문 설정
+### case
+## 경우에 따라 원하는 값을 새 필드에 출력하기
+## 포인트 보유액에 따라 격려 메세지를 다르게 출력하도록 하기
+select user_id, point,
+       (case when point > 10000 then '잘 하고 있어요'
+       else '조금만 더 화이팅!' end) msg
+from point_users pu
+
+## 포인트 보유액에 따라 다른 그룹으로 묶어서 몇 명씩 있는지 확인하기
+with a as (
+	select pu.user_id, pu.point,
+	       (case when pu.point > 10000 then '1만 이상'
+	       	     when pu.point > 5000 then '5천 이상'
+	             else '5천 미만' end) as lv
+	from point_users pu
+)
+select a.lv, count(*) as cnt from a
+group by a.lv
+
