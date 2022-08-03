@@ -64,3 +64,39 @@
   - pd.concat([df1, df2] : df1과 df2를 합쳐줌
   - df.to_csv('파일명.csv', index = False) : df의 데이터를 csv파일로 저장. index=False를 추가하면 데이터의 index부분은 csv에 저장 안됨
   - new_df = pd.read_table('파일명.csv', sep=',') : 파일명.csv를 new_df로 읽어들이고, sep부분은 ,로 표기
+
+오늘 실습 과정에 대한 간략한 설명!
+
+1. 네이버 뉴스 페이지에서, 각각의 뉴스가 가진 URL을 리스트 형태로 만들어서 저장해놓는다.
+2. 각각의 뉴스가 가진 URL 에 접근하면 제목과 본문 내용이 표시가 될텐데, 그 제목과 본문 내용을 newspaper3k 패키지를 이용해서 크롤링을 진행한다.
+3. 크롤링을 할 때마다 크롤링 되어온 내용을 데이터프레임에 계속 이어붙인다.
+4. 크롤링이 끝났다면, 정보가 저장되어있는 데이터프레임을 csv 파일로 저장한다.
+
+!!! 웹과 웹 스크래핑 패키지 이해하기
+beautifulsoup 패키지
+.select('태그명') : 태그를 입력으로 사용해서 모든 정보를 가져옴
+.select('클래스명') : 클래스를 입력으로 사용
+.select('#아이디') : ID를 입력으로 사용
+.select('상위태그명 하위태그명') : 특정 태그를 더욱 구체적으로 지정할 때 사용
+.select('상위태그명>하위태그명')
+변수명.태그명.get('속성명') 이렇게 입력하면 해당 태그 내의 속성 값만 가져옴
+
+Newspaper3k 패키지
+변수명 = Article(기사url, language='ko') 으로 내용 가져옴
+아래 두 함수로 기사 분석 진행
+article.download()
+article.parse()
+
+위의 과정을 거치면
+print(article.title) 로 제목
+print(article.text) 로 본문을 불러올 수 있음
+
+
+!!! 크롤링 전 웹페이지 구조 파악하기
+! url 구조 파악하기(네이버 뉴스)
+sid1 은 카테고리 번호
+date 는 날짜
+page 는 페이지
+! 기사 목차 페이지에서 각 기사들의 url은 f12 누르고 기사 하나의 elements를 f12눌러서 확인한 후, url이 들어있는 태그의 위치를 확인하면 됨
+네이버 기사의 경우 type06_headline 클래스의 li > dl > dt > a 태그에 url이 들어있음
+
