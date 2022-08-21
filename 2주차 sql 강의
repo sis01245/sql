@@ -28,6 +28,8 @@ group by 원하는 분류 기준
 tip : 반올림은 round(수치, 소숫점 아래 수) 사용
 - 합계 : sum 사용
 
+!!!having : group by로 묶은 후 원하는 데이터만 볼 수 있도록 조건을 걸어주는 절. group by 바로 뒤에 쓴다
+
 !!!Order by문 <- Group by 다음(마지막)에 사용. group by 가 없어도 사용 가능
 기본적으로 오름차순 정렬. asc로 따로 표현하거나, 내림차순을 원하면 desc로 표현하면 됨
 
